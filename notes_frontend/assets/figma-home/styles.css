@@ -1,0 +1,183 @@
+:root {
+  /* Design System Colors */
+  --color-252525: #252525;
+  --color-ff9e9e: #ff9e9e;
+  --color-000000: #000000;
+  --color-91f48f: #91f48f;
+  --color-fff599: #fff599;
+  --color-ffffff: #ffffff;
+  --color-3b3b3b: #3b3b3b;
+  --color-9effff: #9effff;
+  --color-b69cff: #b69cff;
+  --color-fd99ff: #fd99ff;
+  --color-ff0000: #ff0000;
+  --color-c4c4c4: #c4c4c4;
+  --color-cfcfcf: #cfcfcf;
+  --color-9a9a9a: #9a9a9a;
+  --color-263238: #263238;
+  --color-d4d6d7: #d4d6d7;
+  --color-7f8a8e: #7f8a8e;
+  --color-3b464c: #3b464c;
+  --color-4fb6b2: #4fb6b2;
+  --color-d0d0d0: #d0d0d0;
+  --color-606060: #606060;
+  --color-30be71: #30be71;
+  --color-cccccc: #cccccc;
+  --color-f4f5d5: #f4f5d5;
+
+  /* Ocean Professional Theme Tokens */
+  --theme-primary: #2563EB;
+  --theme-secondary: #F59E0B;
+  --theme-success: #F59E0B;
+  --theme-error: #EF4444;
+  --theme-background: #f9fafb;
+  --theme-surface: #ffffff;
+  --theme-text: #111827;
+  --theme-gradient: linear-gradient(180deg, rgb(59 130 246 / 0.10), #f9fafb);
+
+  /* Typography tokens (from design system) */
+  --font-nunito: "Nunito", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  --font-roboto: "Roboto", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+
+  /* Sizes from typography refs used in this screen */
+  --typo-13-size: 25px;
+  --typo-13-line: 34.099998px;
+  --typo-13-weight: 400;
+  --typo-13-color: var(--color-000000);
+
+  --typo-14-size: 43px;
+  --typo-14-line: 58.651997px;
+  --typo-14-weight: 600;
+  --typo-14-color: var(--color-ffffff);
+
+  /* Shadows (style_39: shadow_0 and shadow_1) */
+  --shadow-0: -5px 0px 10px 0 rgba(0,0,0,1);
+  --shadow-1: 0px 5px 10px 0 rgba(0,0,0,1);
+  /* shadow_2 not used on this screen */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--theme-background);
+  color: var(--theme-text);
+  font-family: var(--font-nunito);
+}
+
+#home-screen-125-171 {
+  position: relative;
+  width: 414px;
+  height: 1100px;
+  margin: 24px auto;
+  background: var(--color-252525);
+  border-radius: 30px; /* style_0 border_radius */
+  overflow: hidden;
+  /* Subtle Ocean gradient overlay for depth without altering Figma color */
+  background-image:
+    linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%),
+    var(--theme-gradient);
+  background-blend-mode: overlay;
+}
+
+/* Typography mappings */
+.typo-13 {
+  font-family: var(--font-nunito);
+  font-size: var(--typo-13-size);
+  line-height: var(--typo-13-line);
+  font-weight: var(--typo-13-weight);
+  letter-spacing: 0;
+  color: var(--typo-13-color);
+  text-align: left;
+}
+
+.typo-14 {
+  font-family: var(--font-nunito);
+  font-size: var(--typo-14-size);
+  line-height: var(--typo-14-line);
+  font-weight: var(--typo-14-weight);
+  letter-spacing: 0;
+  color: var(--typo-14-color);
+  text-align: left;
+}
+
+/* Hero text - absolute positioned per Figma coordinates normalized to frame origin */
+.hero-text {
+  position: absolute;
+  /* Figma root frame x:1602,y:-823 and hero text x:1626,y:-776
+     Offset normalized as left: 24, top: 47 inside 414x1100 frame */
+}
+
+/* Icon Buttons (style_6: background #3b3b3b, border_radius 15, 50x50) */
+.icon-btn {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: var(--color-3b3b3b);
+  border-radius: 15px;
+  border: none;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.icon-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+.icon-btn:focus-visible {
+  outline: 2px solid var(--theme-secondary);
+  outline-offset: 2px;
+}
+
+/* Cards */
+.card {
+  position: absolute;
+  border-radius: 10px;
+}
+.card--pink { background: var(--color-ff9e9e); } /* style_1 */
+.card--green { background: var(--color-91f48f); } /* style_3 */
+.card--yellow { background: var(--color-fff599); } /* style_4 */
+.card--cyan { background: var(--color-9effff); } /* style_7 */
+.card--lavender { background: var(--color-b69cff); } /* style_8 */
+
+/* Card titles are absolutely positioned text elements as per Figma */
+.card-title {
+  position: absolute;
+}
+
+/* Floating Action Button (Ellipse with style_39: background #252525 and two shadows) */
+.fab {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: var(--color-252525);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-0), var(--shadow-1);
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+.fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+}
+.fab:focus-visible {
+  outline: 2px solid var(--theme-primary);
+  outline-offset: 2px;
+}
+
+/* Responsive containment: scale the frame to viewport width while keeping aspect ratio.
+   This preserves pixel-precise internal placement. */
+@media (max-width: 430px) {
+  #home-screen-125-171 {
+    width: 100vw;
+    height: calc(100vw * (1100 / 414));
+    transform-origin: top left;
+  }
+}
