@@ -3,61 +3,42 @@
 /* This stylesheet intentionally uses no url(...) image references.
    All images are referenced in Vue templates via absolute public paths (/assets/figmaimages/...). */
 :root {
-  /* Design System Colors */
-  --color-252525: #252525;
-  --color-ff9e9e: #ff9e9e;
-  --color-000000: #000000;
-  --color-91f48f: #91f48f;
-  --color-fff599: #fff599;
-  --color-ffffff: #ffffff;
-  --color-3b3b3b: #3b3b3b;
-  --color-9effff: #9effff;
-  --color-b69cff: #b69cff;
-  --color-fd99ff: #fd99ff;
-  --color-ff0000: #ff0000;
-  --color-c4c4c4: #c4c4c4;
-  --color-cfcfcf: #cfcfcf;
-  --color-9a9a9a: #9a9a9a;
-  --color-263238: #263238;
-  --color-d4d6d7: #d4d6d7;
-  --color-7f8a8e: #7f8a8e;
-  --color-3b464c: #3b464c;
-  --color-4fb6b2: #4fb6b2;
-  --color-d0d0d0: #d0d0d0;
-  --color-606060: #606060;
-  --color-30be71: #30be71;
-  --color-cccccc: #cccccc;
-  --color-f4f5d5: #f4f5d5;
+  /* Ocean Professional Theme Variables (public, canonical) */
+  --color-primary: #2563EB;   /* Ocean Blue */
+  --color-secondary: #F59E0B; /* Amber accent */
+  --color-success: #F59E0B;   /* Alias to secondary per theme */
+  --color-error: #EF4444;     /* Red for errors */
+  --color-text: #111827;      /* Slate-900 */
+  --color-bg: #f9fafb;        /* Gray-50 */
+  --color-surface: #ffffff;   /* Surface/containers */
+  --color-muted: #6B7280;     /* Gray-500 for secondary text */
 
-  /* Ocean Professional Theme Tokens */
-  --theme-primary: #2563EB;
-  --theme-secondary: #F59E0B;
-  --theme-success: #F59E0B;
-  --theme-error: #EF4444;
-  --theme-background: #f9fafb;
-  --theme-surface: #ffffff;
-  --theme-text: #111827;
-  --theme-gradient: linear-gradient(180deg, rgb(59 130 246 / 0.10), #f9fafb);
+  /* Legacy palette retained for cards and Figma accents (do not use for text/UI) */
+  --legacy-dark: #252525;
+  --legacy-chip-pink: #ff9e9e;
+  --legacy-chip-green: #91f48f;
+  --legacy-chip-yellow: #fff599;
+  --legacy-chip-cyan: #9effff;
+  --legacy-chip-lavender: #b69cff;
+  --legacy-icon: #3b3b3b;
 
-  /* Typography tokens (from design system) */
+  /* Derived tokens and helpers */
+  --primary-hover: #1E40AF; /* Darker blue for hover (WCAG AA on white) */
+  --secondary-hover: #B45309; /* Darker amber for hover */
+  --focus-ring: var(--color-primary);
+  --surface-elevated: var(--color-surface);
+  --gradient-soft: linear-gradient(180deg, rgb(37 99 235 / 0.10), var(--color-bg));
+
+  /* Typography tokens */
   --font-nunito: "Nunito", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  --font-roboto: "Roboto", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 
   /* Sizes from typography refs used in this screen */
   --typo-13-size: 25px;
   --typo-13-line: 34.099998px;
-  --typo-13-weight: 400;
-  --typo-13-color: var(--color-000000);
-
+  --typo-13-weight: 600; /* increase weight for better contrast on tinted cards */
   --typo-14-size: 43px;
   --typo-14-line: 58.651997px;
-  --typo-14-weight: 600;
-  --typo-14-color: var(--color-ffffff);
-
-  /* Shadows (style_39: shadow_0 and shadow_1) */
-  --shadow-0: -5px 0px 10px 0 rgba(0,0,0,1);
-  --shadow-1: 0px 5px 10px 0 rgba(0,0,0,1);
-  /* shadow_2 not used on this screen */
+  --typo-14-weight: 700;
 }
 
 * {
@@ -67,93 +48,141 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--theme-background);
-  color: var(--theme-text);
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-nunito);
 }
 
+/* Utility classes - semantic mapping to theme variables */
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-muted { color: var(--color-muted); }
+.text-error { color: var(--color-error); }
+.text-on-primary { color: #ffffff; }
+.text-on-surface { color: var(--color-text); }
+
+.bg-surface { background: var(--color-surface); }
+.bg-primary { background: var(--color-primary); color: #ffffff; }
+.bg-secondary { background: var(--color-secondary); color: #111827; }
+
+.border-primary { border-color: var(--color-primary); }
+.border-secondary { border-color: var(--color-secondary); }
+
+a, .link {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 160ms ease, opacity 160ms ease, filter 160ms ease;
+}
+a:hover, .link:hover {
+  color: var(--primary-hover);
+}
+a:active, .link:active {
+  opacity: 0.9;
+}
+a:focus-visible, .link:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* Root Frame: maintain visual per Figma but apply Ocean gradient subtly */
 #home-screen-125-171 {
   position: relative;
   width: 414px;
   height: 1100px;
   margin: 24px auto;
-  background: var(--color-252525);
-  border-radius: 30px; /* style_0 border_radius */
+  background: var(--legacy-dark);
+  border-radius: 30px;
   overflow: hidden;
-  /* Subtle Ocean gradient overlay for depth without altering Figma color */
   background-image:
     linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%),
-    var(--theme-gradient);
+    var(--gradient-soft);
   background-blend-mode: overlay;
 }
 
-/* Typography mappings */
+/* Typography mappings: ensure theme text tokens */
 .typo-13 {
-  font-family: var(--font-nunito);
   font-size: var(--typo-13-size);
   line-height: var(--typo-13-line);
   font-weight: var(--typo-13-weight);
   letter-spacing: 0;
-  color: var(--typo-13-color);
+  color: var(--color-text);
   text-align: left;
 }
-
 .typo-14 {
-  font-family: var(--font-nunito);
   font-size: var(--typo-14-size);
   line-height: var(--typo-14-line);
   font-weight: var(--typo-14-weight);
   letter-spacing: 0;
-  color: var(--typo-14-color);
+  color: #ffffff; /* On dark header background for contrast */
   text-align: left;
 }
 
-/* Hero text - absolute positioned per Figma coordinates normalized to frame origin */
+/* Hero text - absolute positioned per Figma coordinates */
 .hero-text {
   position: absolute;
-  /* Figma root frame x:1602,y:-823 and hero text x:1626,y:-776
-     Offset normalized as left: 24, top: 47 inside 414x1100 frame */
 }
 
-/* Icon Buttons (style_6: background #3b3b3b, border_radius 15, 50x50) */
+/* Icon Buttons: use surface and primary accents for focus */
 .icon-btn {
   position: absolute;
   width: 50px;
   height: 50px;
-  background: var(--color-3b3b3b);
+  background: var(--legacy-icon);
   border-radius: 15px;
   border: none;
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, filter 160ms ease;
 }
 .icon-btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  filter: brightness(1.05);
+}
+.icon-btn:active {
+  filter: brightness(0.95);
 }
 .icon-btn:focus-visible {
-  outline: 2px solid var(--theme-secondary);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
-/* Cards */
+/* Cards: retain Figma accent backgrounds; ensure text is readable */
 .card {
   position: absolute;
   border-radius: 10px;
+  color: #111827; /* default text on pastel backgrounds for AA */
+  overflow: hidden;
 }
-.card--pink { background: var(--color-ff9e9e); } /* style_1 */
-.card--green { background: var(--color-91f48f); } /* style_3 */
-.card--yellow { background: var(--color-fff599); } /* style_4 */
-.card--cyan { background: var(--color-9effff); } /* style_7 */
-.card--lavender { background: var(--color-b69cff); } /* style_8 */
+.card--pink { background: var(--legacy-chip-pink); }
+.card--green { background: var(--legacy-chip-green); }
+.card--yellow { background: var(--legacy-chip-yellow); }
+.card--cyan { background: var(--legacy-chip-cyan); }
+.card--lavender { background: var(--legacy-chip-lavender); }
 
-/* Card titles are absolutely positioned text elements as per Figma */
+/* Card titles are absolutely positioned text per Figma */
 .card-title {
   position: absolute;
+  font-weight: 700; /* stronger for AA contrast on tints */
+  color: var(--color-text);
 }
+/* Additional utilities for surfaces and borders on Figma components */
+.bg-bg { background: var(--color-bg); }
+.bg-surface { background: var(--color-surface); }
+.border { border: 1px solid transparent; }
+.border-primary { border-color: var(--color-primary); }
+.border-secondary { border-color: var(--color-secondary); }
+.border-muted { border-color: var(--color-muted); }
+/* Additional utilities for surfaces and borders on Figma components */
+.bg-bg { background: var(--color-bg); }
+.bg-surface { background: var(--color-surface); }
+.border { border: 1px solid transparent; }
+.border-primary { border-color: var(--color-primary); }
+.border-secondary { border-color: var(--color-secondary); }
+.border-muted { border-color: var(--color-muted); }
 
-/* Floating Action Button (Ellipse with style_39: background #252525 and two shadows) */
+/* FAB: convert to primary to match theme; maintain depth */
 .fab {
   position: absolute;
   width: 70px;
@@ -161,23 +190,66 @@ html, body {
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  background: var(--color-252525);
+  background: var(--color-primary);
+  color: #ffffff;
   display: grid;
   place-items: center;
-  box-shadow: var(--shadow-0), var(--shadow-1);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
   transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
 }
 .fab:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+  background: var(--primary-hover);
+  box-shadow: 0 16px 28px rgba(30, 64, 175, 0.35);
+}
+.fab:active {
+  transform: translateY(0);
+  background: var(--primary-hover);
+  box-shadow: 0 8px 18px rgba(30, 64, 175, 0.28);
 }
 .fab:focus-visible {
-  outline: 2px solid var(--theme-primary);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
-/* Responsive containment: scale the frame to viewport width while keeping aspect ratio.
-   This preserves pixel-precise internal placement. */
+/* Buttons (general utility if needed later) */
+.button, .btn, .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+  transition: background-color 160ms ease, box-shadow 160ms ease, filter 160ms ease, transform 160ms ease;
+}
+.btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 8px 16px rgba(30, 64, 175, 0.25);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+.btn-primary:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+.btn-secondary {
+  background: var(--color-secondary);
+  color: #111827;
+}
+.btn-secondary:hover {
+  background: var(--secondary-hover);
+}
+
+/* Muted labels, timestamps, etc. */
+.label, .subtitle, .timestamp, .meta {
+  color: var(--color-muted);
+}
+
+/* Responsive containment: scale the frame to viewport width while keeping aspect ratio. */
 @media (max-width: 430px) {
   #home-screen-125-171 {
     width: 100vw;

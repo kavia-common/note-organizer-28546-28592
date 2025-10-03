@@ -8,7 +8,7 @@
   IMPORTANT: Images are referenced via public URLs in the template, bound via refs computed at runtime on the client.
 -->
 <template>
-  <!-- Root Frame: Home Screen (frame 414x1100, background #252525, 30px radius) -->
+  <!-- Root Frame: Home Screen (frame 414x1100, background dark with subtle gradient overlay) -->
   <main id="home-screen-125-171" role="main" aria-label="Home Screen">
     <!-- Hero Text: Notes -->
     <h1 class="typo-14 hero-text" aria-label="Notes" style="left: 24px; top: 47px;">Notes</h1>
@@ -68,7 +68,7 @@
       </h2>
     </section>
 
-    <!-- Floating Add Button (Ellipse with + icon, shadow style_39) -->
+    <!-- Floating Add Button -->
     <button
       ref="fabBtn"
       class="fab"
