@@ -1,10 +1,11 @@
 <!--
   pages/index.vue
-  Generated from Figma assets (assets/figma-home/index.html, styles.css, app.js)
+  Generated from Figma assets (assets/figma-home/index.html, styles.css)
   - Template contains the inner content of the Figma index.html (without html/head/body)
   - Styles are imported from ~/assets/figma-home/styles.css
-  - Interactivity from app.js is converted to Vue methods and lifecycle hooks
-  To adjust styles, edit assets/figma-home/styles.css or add non-scoped styles below.
+  - Interactivity translated into Vue methods and lifecycle hooks.
+
+  IMPORTANT: Images are referenced via public URLs in the template, bound via refs computed at runtime on the client.
 -->
 <template>
   <!-- Root Frame: Home Screen (frame 414x1100, background #252525, 30px radius) -->
@@ -22,7 +23,7 @@
       @keydown.enter.prevent="onKeyActivate('Search')"
       @keydown.space.prevent="onKeyActivate('Search')"
     >
-      <img src="/assets/figmaimages/figma_image_125_190_8_12.png" alt="Search Icon" width="24" height="24" />
+      <img :src="imgSearch" alt="Search Icon" width="24" height="24" />
     </button>
     <button
       ref="infoBtn"
@@ -33,7 +34,7 @@
       @keydown.enter.prevent="onKeyActivate('Info')"
       @keydown.space.prevent="onKeyActivate('Info')"
     >
-      <img src="/assets/figmaimages/figma_image_125_188_8_9.png" alt="Info Icon" width="24" height="24" />
+      <img :src="imgInfo" alt="Info Icon" width="24" height="24" />
     </button>
 
     <!-- Note Cards -->
@@ -63,7 +64,7 @@
 
     <section class="card card--lavender" aria-label="FOSS Apps card" style="left: 24px; top: 751px; width: 365px; height: 100px;">
       <h2 class="typo-13 card-title" style="left: 45px; top: 768px; width: 297px;">
-        List of free &amp; open source apps
+        List of free & open source apps
       </h2>
     </section>
 
@@ -77,7 +78,7 @@
       @keydown.enter.prevent="onFabKeyActivate"
       @keydown.space.prevent="onFabKeyActivate"
     >
-      <img src="/assets/figmaimages/figma_image_125_192_115_19.png" alt="Add Icon" width="28" height="28" />
+      <img :src="imgAdd" alt="Add Icon" width="28" height="28" />
     </button>
   </main>
 </template>
@@ -87,22 +88,26 @@
 /**
  * Home page generated from Figma assets.
  * Provides basic interactions for icon buttons and FAB with accessible keyboard activation.
- * Images are served from /assets/figmaimages via the Nuxt public directory.
+ * Images are bound via refs to avoid Vite import-analysis of static asset strings.
  */
-
-definePageMeta({
-  title: 'Home',
-  layout: false
-})
-
 import { onMounted, ref } from 'vue'
 
 const searchBtn = ref<HTMLButtonElement | null>(null)
 const infoBtn = ref<HTMLButtonElement | null>(null)
 const fabBtn = ref<HTMLButtonElement | null>(null)
 
-// Initialize ARIA roles and tabindex like original script
+// Build public image URLs at runtime on client only.
+const imgSearch = ref<string>('')
+const imgInfo = ref<string>('')
+const imgAdd = ref<string>('')
+
 onMounted(() => {
+  const base = ''
+  // Use absolute paths resolved at runtime; these are served from public/.
+  imgSearch.value = base + '/assets/figmaimages/figma_image_125_190_8_12.png'
+  imgInfo.value = base + '/assets/figmaimages/figma_image_125_188_8_9.png'
+  imgAdd.value = base + '/assets/figmaimages/figma_image_125_192_115_19.png'
+
   const buttons: Array<HTMLButtonElement | null> = [searchBtn.value, infoBtn.value]
   buttons.forEach((btn) => {
     if (!btn) return
@@ -115,35 +120,32 @@ onMounted(() => {
   }
 })
 
+// PUBLIC_INTERFACE
 function onIconClick(label: string) {
-  // PUBLIC_INTERFACE
   /** Handle icon button clicks. */
   console.log(`Clicked ${label}`)
 }
 
+// PUBLIC_INTERFACE
 function onKeyActivate(label: string) {
-  // PUBLIC_INTERFACE
   /** Activate icon button via keyboard. */
   onIconClick(label)
 }
 
+// PUBLIC_INTERFACE
 function onFabClick() {
-  // PUBLIC_INTERFACE
   /** Handle FAB click for adding a note. */
   console.log('Add Note action triggered')
 }
 
+// PUBLIC_INTERFACE
 function onFabKeyActivate() {
-  // PUBLIC_INTERFACE
   /** Activate FAB via keyboard. */
   onFabClick()
 }
 </script>
 
 <style>
-/* Import the Figma stylesheet globally for this page */
+/* Import the Figma stylesheet globally for this page (no url(...) images here) */
 @import '~/assets/figma-home/styles.css';
-
-/* Remove potential global resets that might conflict; keep component-specific overrides here if needed. */
-/* Example: No additional resets added to avoid conflicts with Nuxt defaults */
 </style>

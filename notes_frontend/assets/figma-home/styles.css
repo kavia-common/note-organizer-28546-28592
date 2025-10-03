@@ -1,3 +1,7 @@
+/* This stylesheet intentionally uses no url(...) image references.
+   All images are referenced in Vue templates via absolute public paths (/assets/figmaimages/...). */
+/* This stylesheet intentionally uses no url(...) image references.
+   All images are referenced in Vue templates via absolute public paths (/assets/figmaimages/...). */
 :root {
   /* Design System Colors */
   --color-252525: #252525;
